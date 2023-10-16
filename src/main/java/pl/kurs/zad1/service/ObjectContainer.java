@@ -26,6 +26,13 @@ public class ObjectContainer<T> {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public ObjectContainer() {
+        this.condition = obj -> true;
+    }
+
+>>>>>>> eb9cf96 (Initial commit)
     public ObjectContainer(Predicate<T> condition) {
         this.condition = condition;
     }
@@ -64,6 +71,7 @@ public class ObjectContainer<T> {
             head = head.next;
         }
 
+<<<<<<< HEAD
 
         if (head == null) {
             return;
@@ -71,6 +79,10 @@ public class ObjectContainer<T> {
 
         Node<T> current = head;
         while (current.next != null) {
+=======
+        Node<T> current = head;
+        while (current != null && current.next != null) {
+>>>>>>> eb9cf96 (Initial commit)
             if (filter.test(current.next.data)) {
                 current.next = current.next.next;
             } else {
@@ -83,7 +95,10 @@ public class ObjectContainer<T> {
         storeToFile(fileName, obj -> true, obj -> obj.toString());
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb9cf96 (Initial commit)
     public void storeToFile(String fileName, Predicate<T> filter, Function<T, String> formatter) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             Node<T> temp = head;
@@ -96,6 +111,7 @@ public class ObjectContainer<T> {
         }
     }
 
+<<<<<<< HEAD
 
     public static ObjectContainer<Person> fromFile(String fileName) throws IOException, ClassNotFoundException {
         ObjectContainer<Person> container = new ObjectContainer<>(obj -> true);
@@ -115,6 +131,22 @@ public class ObjectContainer<T> {
         return container;
     }
 
+=======
+    public static <T> ObjectContainer<T> fromFile(String fileName, Function<String, T> converter) throws IOException {
+        ObjectContainer<T> container = new ObjectContainer<>(obj -> true);
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                T obj = converter.apply(line);
+                container.add(obj);
+            }
+        }
+        return container;
+    }
+
+
+
+>>>>>>> eb9cf96 (Initial commit)
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
